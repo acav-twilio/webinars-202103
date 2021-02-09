@@ -1,0 +1,20 @@
+{
+  "name": "tapas-bar",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "twilio-run --env"
+  },
+  "devDependencies": {
+    "twilio-run": "^2.0.0"
+  },
+  "engines": {
+    "node": "8.10.0"
+  },
+  "dependencies": {
+    "dialogflow": "^1.2.0",
+    "env": "0.0.2",
+    "node-fetch": "^2.6.1"
+  }
+}
