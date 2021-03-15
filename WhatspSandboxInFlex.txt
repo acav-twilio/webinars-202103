@@ -1,0 +1,13 @@
+curl -X POST "https://flex-api.twilio.com/v1/FlexFlows" \
+--data-urlencode "ChannelType=whatsapp" \
+--data-urlencode "Enabled=true" \
+--data-urlencode "IntegrationType=studio" \
+--data-urlencode "ContactIdentity=whatsapp:+xxxx" \
+--data-urlencode "FriendlyName=Flex WhatsApp FlexFlow" \
+--data-urlencode "Integration.FlowSid=FWxx" \
+--data-urlencode "ChatServiceSid=ISxx" \
+-u ACxx:yourAuthToken
+
+And add the Proxy Webhook on your SMS webhook of the proxy as  Webhook for whatsapp
+
+https://webhooks.twilio.com/v1/Accounts/ACxx/Proxy/KSxx/Webhooks/Message

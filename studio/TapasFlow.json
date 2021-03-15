@@ -1,0 +1,140 @@
+{
+    "description": "Tapas",
+    "states": [
+      {
+        "name": "Trigger",
+        "type": "trigger",
+        "transitions": [
+          {
+            "next": "DF",
+            "event": "incomingMessage"
+          },
+          {
+            "event": "incomingCall"
+          },
+          {
+            "event": "incomingRequest"
+          }
+        ],
+        "properties": {
+          "offset": {
+            "x": 0,
+            "y": -10
+          }
+        }
+      },
+      {
+        "name": "SendMessageToAgent",
+        "type": "send-to-flex",
+        "transitions": [
+          {
+            "event": "callComplete"
+          },
+          {
+            "event": "failedToEnqueue"
+          },
+          {
+            "event": "callFailure"
+          }
+        ],
+        "properties": {
+          "offset": {
+            "x": 410,
+            "y": 1110
+          },
+          "workflow": "WWea21a47071e40107cb97fb54e57db0af",
+          "channel": "TC1ffebd52bfe86c56957a7285b739fa4e",
+          "attributes": "{\"name\": \"{{trigger.message.ChannelAttributes.from}}\", \"channelType\": \"{{trigger.message.ChannelAttributes.channel_type}}\", \"channelSid\": \"{{trigger.message.ChannelSid}}\"}",
+          "timeout": "300"
+        }
+      },
+      {
+        "name": "DF",
+        "type": "run-function",
+        "transitions": [
+          {
+            "next": "send_message_1",
+            "event": "success"
+          },
+          {
+            "next": "SendMessageToAgent",
+            "event": "fail"
+          }
+        ],
+        "properties": {
+          "service_sid": "ZS76d6692a877dcd48d2c664b907c378d0",
+          "environment_sid": "ZE07a82f4788043d0b69274eaed12ba432",
+          "offset": {
+            "x": 0,
+            "y": 230
+          },
+          "function_sid": "ZH3e93e8d57fc5c3f532746decff7970d4",
+          "parameters": [
+            {
+              "value": "{{trigger.message.Body}}",
+              "key": "Body"
+            }
+          ],
+          "url": "https://tapas-7568.twil.io/incoming_message"
+        }
+      },
+      {
+        "name": "send_message_1",
+        "type": "send-message",
+        "transitions": [
+          {
+            "next": "is_escalated",
+            "event": "sent"
+          },
+          {
+            "event": "failed"
+          }
+        ],
+        "properties": {
+          "offset": {
+            "x": -280,
+            "y": 500
+          },
+          "service": "{{trigger.message.InstanceSid}}",
+          "channel": "{{trigger.message.ChannelSid}}",
+          "from": "{{flow.channel.address}}",
+          "to": "{{contact.channel.address}}",
+          "body": "{{widgets.DF.parsed.response}}"
+        }
+      },
+      {
+        "name": "is_escalated",
+        "type": "split-based-on",
+        "transitions": [
+          {
+            "event": "noMatch"
+          },
+          {
+            "next": "SendMessageToAgent",
+            "event": "match",
+            "conditions": [
+              {
+                "friendly_name": "If value equal_to true",
+                "arguments": [
+                  "{{widgets.DF.parsed.escalated}}"
+                ],
+                "type": "equal_to",
+                "value": "true"
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "input": "{{widgets.DF.parsed.escalated}}",
+          "offset": {
+            "x": -260,
+            "y": 730
+          }
+        }
+      }
+    ],
+    "initial_state": "Trigger",
+    "flags": {
+      "allow_concurrent_calls": true
+    }
+  }
