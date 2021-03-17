@@ -88,13 +88,13 @@ async function detectIntent(query, lang) {
           let response = ''
           switch (language) {
               case 'es':
-                  // es español
+                  // en español
                   executeQuery(event.Body, 'es')
                   .then(result => {
   
                        console.log(result.toString());
                       if (result.intent === 'pedido') {
-                          response = `¡Gracias! Estamos preparando  ${result.parameters.fields.number.numberValue} ${result. parameters.fields.any.stringValue}`; 
+                          response = `¡Gracias! Estamos preparando  ${result.parameters.fields.number.numberValue} ${result.parameters.fields.any.stringValue}`; 
                       } else 
                           if(result.intent ==='Default Welcome Intent'){
                               response = '¡Hola! ¿Qué puedo servirle?';
@@ -115,11 +115,11 @@ async function detectIntent(query, lang) {
                   .then(result => {
                       
                       if (result.intent === 'pedido') {
-                          response = `Thank you! We are getting  ${result.parameters.fields.number.numberValue} ${result. parameters.fields.any.stringValue} ready for you.`; 
+                          response = `Thank you! We are getting  ${result.parameters.fields.number.numberValue} ${result.parameters.fields.any.stringValue} ready for you.`; 
                       } else {
                           
                            if(result.intent ==='Default Welcome Intent'){
-                              response = 'Hi! How may I help you?';
+                              response = 'Hi! What could I serve you today?';
                           }
                           else {
                               response = 'Sorry, I did not understand. Could you repeat again?';

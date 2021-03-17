@@ -108,7 +108,7 @@ async function detectIntent(query, lang) {
 
                           }
                           else {
-                              response = 'Lo siento, no le he entendido. ¿Podría decírmelo otra vez? Entretanto le paso al camarero';
+                              response = 'Lo siento, no le he entendido. Le paso con el camarero';
                               callback(null, {"response": response, "escalated": true});
 
 
@@ -137,7 +137,7 @@ async function detectIntent(query, lang) {
 
                           }
                           else {
-                              response = 'Sorry, I did not understand. Could you repeat again? I will pass you to our waiter';
+                              response = 'Sorry, I did not understand. I will pass you to our waiter';
                               callback(null, {"response": response, "escalated": true});
 
                           }
