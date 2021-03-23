@@ -24,7 +24,7 @@ const fetch = require('node-fetch');
           let response = ''
           switch (language) {
               case 'es':
-                  // es español
+                  // en español
                   
                     response = 'Hola, te atenderemos en español';
                   
